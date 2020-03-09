@@ -1,7 +1,7 @@
-import * as assert from 'assert'
-import * as sinon from 'sinon'
-import * as proxyquire from 'proxyquire'
-import * as PgPromise from 'pg-promise'
+import assert from 'assert'
+import sinon from 'sinon'
+import proxyquire from 'proxyquire'
+import PgPromise from 'pg-promise'
 import { TableDefinition } from '../../src/schemaInterfaces'
 import Options from '../../src/options'
 
@@ -9,7 +9,7 @@ const options = new Options({})
 const pgp = PgPromise()
 
 describe('PostgresDatabase', () => {
-    const sandbox = sinon.sandbox.create()
+    const sandbox = sinon.createSandbox()
     const db = {
         query: sandbox.stub(),
         each: sandbox.stub(),
@@ -93,7 +93,7 @@ describe('PostgresDatabase', () => {
         })
     })
     describe('getTableTypes', () => {
-        const tableTypesSandbox = sinon.sandbox.create()
+        const tableTypesSandbox = sinon.createSandbox()
         before(() => {
             tableTypesSandbox.stub(PostgresProxy, 'getEnumTypes')
             tableTypesSandbox.stub(PostgresProxy, 'getTableDefinition')

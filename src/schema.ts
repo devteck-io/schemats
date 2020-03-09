@@ -1,6 +1,6 @@
-import { Database } from './schemaInterfaces'
-import { PostgresDatabase } from './schemaPostgres'
-import { MysqlDatabase } from './schemaMysql'
+import { Database } from "./schemaInterfaces";
+import { PostgresDatabase } from "./schemaPostgres";
+import { MysqlDatabase } from "./schemaMysql";
 
 enum SQLVersion {
     POSTGRES = 1,
@@ -8,25 +8,27 @@ enum SQLVersion {
     UNKNOWN = 3
 }
 
-function getSQLVersion (connection: string): SQLVersion {
+function getSQLVersion(connection: string): SQLVersion {
     if (/^postgres(ql)?:\/\//i.test(connection)) {
-        return SQLVersion.POSTGRES
+        return SQLVersion.POSTGRES;
     } else if (/^mysql:\/\//i.test(connection)) {
-        return SQLVersion.MYSQL
+        return SQLVersion.MYSQL;
     } else {
-        return SQLVersion.UNKNOWN
+        return SQLVersion.UNKNOWN;
     }
 }
 
-export function getDatabase (connection: string): Database {
+export function getDatabase(connection: string): Database {
     switch (getSQLVersion(connection)) {
         case SQLVersion.MYSQL:
-            return new MysqlDatabase(connection)
+            return new MysqlDatabase(connection);
         case SQLVersion.POSTGRES:
-            return new PostgresDatabase(connection)
+            return new PostgresDatabase(connection);
         default:
-            throw new Error(`SQL version unsupported in connection: ${connection}`)
+            throw new Error(
+                `SQL version unsupported in connection: ${connection}`
+            );
     }
 }
 
-export {Database} from './schemaInterfaces'
+export { Database } from "./schemaInterfaces";
